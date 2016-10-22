@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.wefine.spring.AbstractSpringTest;
-import org.wefine.spring.jooq.tables.pojos.Comments;
+import org.wefine.spring.jooq.tables.pojos.Users;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
@@ -14,14 +14,14 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class CommentsDaoTest extends AbstractSpringTest {
+public class UsersDaoTest extends AbstractSpringTest {
 
     @Resource
-    private CommentsDao dao;
+    private UsersDao dao;
 
     @Test
     public void testFindAll() {
-        List<Comments> list = dao.findAll();
+        List<Users> list = dao.findAll();
 
         log.info("size=" + list.size());
     }
@@ -30,7 +30,7 @@ public class CommentsDaoTest extends AbstractSpringTest {
     @Test
     public void testSearchWithPageable() {
         PageRequest request = new PageRequest(0, 10);
-        List<Comments> list = dao.search(request);
+        List<Users> list = dao.search(request);
         log.info("first page, size=" + list.size());
         list.forEach(System.out::println);
 
@@ -40,7 +40,7 @@ public class CommentsDaoTest extends AbstractSpringTest {
 
         Sort sort = new Sort(Sort.Direction.ASC, "name");
         PageRequest sortedRequest = new PageRequest(0, 10, sort);
-        List<Comments> sortedList = dao.search(sortedRequest);
+        List<Users> sortedList = dao.search(sortedRequest);
 
         // first page--sort by name
         log.info("first page--sort by name, size=" + sortedList.size());
@@ -58,7 +58,7 @@ public class CommentsDaoTest extends AbstractSpringTest {
         conditionMap.put("name", "2");
 
         log.info("===================================query by name, start");
-        List<Comments> list = dao.search(request, conditionMap);
+        List<Users> list = dao.search(request, conditionMap);
         log.info("size=" + list.size());
         list.forEach(System.out::println);
         log.info("===================================end");
@@ -97,7 +97,7 @@ public class CommentsDaoTest extends AbstractSpringTest {
 
         Sort sort = new Sort(Sort.Direction.DESC, "name");
         PageRequest sortedRequest = new PageRequest(1, 10, sort);
-        List<Comments> sortedList = dao.search(sortedRequest, conditionMap);
+        List<Users> sortedList = dao.search(sortedRequest, conditionMap);
 
         log.info("size=" + sortedList.size());
         sortedList.forEach(System.out::println);

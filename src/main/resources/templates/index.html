@@ -1,32 +1,35 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-    <head>
-        <title>Spring security</title>
-        <meta charset="utf-8" />
-        <link rel="stylesheet" href="css/main.css" th:href="@{/css/main.css}" />
-    </head>
-    <body>
-        <div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
-            Logged user: <span sec:authentication="name">Bob</span> |
-            Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span> |
-            <!--/* When using CSRF this needs to be a POST */-->
-            <form th:action="@{/logout}" method="post" style="display:inline">
-                <input type="submit" value="Logout"/>
-            </form>
-        </div>
-        <h1>Thymeleafexamples - Spring security</h1>
-        <p>This is a demo of Thymeleaf and Spring-security integration.</p>
-        <h2>Private pages</h2>
-        <p>This is a public page, but you can navigate to protected pages to trigger authentication.</p>
-        <ul>
-            <li>Go to <a href="admin/index.html" th:href="@{/admin/index.html}">administration zone</a> (only admins)</li>
-            <li>Go to <a href="user/index.html" th:href="@{/user/index.html}">user zone</a> (only users)</li>
-            <li>Go to <a href="user/index.html" th:href="@{/shared/index.html}">shared zone</a> (both users and admins)</li>
-        </ul>
-        <h2>Exception handling</h2>
-        <ul>
-            <li>You can <a href="error.html" th:href="@{/simulateError.html}">simulate an exception</a> to see custom ErrorPage.</li>
-        </ul>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{includes/header :: head}"></head>
+<body>
+
+<div th:replace="~{includes/navbar :: nav}"></div>
+<div class="container">
+    <h1 id="title">Welcome to myCalendar!</h1>
+
+    <p>Below you can find some highlights about myCalendar. Each chapter will have a slightly different summary
+        depending on what will be done.</p>
+    <ul>
+        <li><a id="eventsLink" href="events/">All Events</a> - shows all events for all users. Once secured, this will
+            only be viewable by administrators.
+        </li>
+        <li><a id="myEventsLink" href="events/my">My Events</a> - shows all events that user1@example.com is the owner
+            or attendee. Once we apply security only a logged in user
+            will be able to view this page. Additionally, the logged in user will be used rather than always using
+            user1@example.com
+        </li>
+        <li><a id="createEventLink" href="events/form">Create Event</a> - will allow creating a new Event with
+            user1@example.com as the owner. Once we add security, only a logged in
+            user will be able to view this page. Additionally, the logged in user will be the owner rather than always
+            using user1@example.com.
+        </li>
+        <li>
+            <a id="h2Link" href="admin/h2/">H2 Database Console</a> - Allows you to interact with the database using a
+            web console.
+        </li>
+    </ul>
+</div>
+
+<div th:replace="~{includes/footer :: foot}"></div>
+</body>
 </html>

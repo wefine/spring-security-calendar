@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="nav" id="nav-bar" class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+
+            <a class="brand" href="/">myCalendar</a>
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <li><a id="navWelcomeLink" th:href="@{/}">Welcome</a></li>
+                    <li><a id="navEventsLink" th:href="@{/events/}">All Events</a></li>
+                    <li><a id="navMyEventsLink" th:href="@{/events/my}">My Events</a></li>
+                    <li><a id="navCreateEventLink" th:href="@{/events/form}">Create Event</a></li>
+                </ul>
+            </div>
+            <div id="nav-account" class="nav-collapse pull-right">
+                <ul class="nav">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
