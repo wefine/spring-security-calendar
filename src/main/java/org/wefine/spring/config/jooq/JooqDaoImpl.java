@@ -202,10 +202,30 @@ public abstract class JooqDaoImpl<R extends UpdatableRecord<R>, P, T> implements
 
     @SuppressWarnings("unchecked")
     @Override
-    public /* non-final */ <Z> List<P> fetch(Field<Z> field, Z... values) {
+    public /* non-final */ <Z> List<P> fetchIn(Field<Z> field, Z... values) {
         return dsl
                 .selectFrom(table)
                 .where(field.in(values))
+                .fetch()
+                .map(mapper());
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public /* non-final */ <Z> List<P> fetchLike(Field<Z> field, Z value) {
+        return dsl
+                .selectFrom(table)
+                .where(field.like("%" + value + "%"))
+                .fetch()
+                .map(mapper());
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public /* non-final */ <Z> List<P> fetchEqual(Field<Z> field, Z value) {
+        return dsl
+                .selectFrom(table)
+                .where(field.eq(value))
                 .fetch()
                 .map(mapper());
     }
@@ -294,8 +314,26 @@ public abstract class JooqDaoImpl<R extends UpdatableRecord<R>, P, T> implements
     }
 
     @Override
+    public List<P> search(Map<String, Object> conditionMap) {
+        log.debug("Try to find entries by using search term: {}",
+                conditionMap
+        );
+
+        Optional<Condition> condition = createWhereConditions(conditionMap);
+
+        SelectConnectByStep<R> step =
+                condition.isPresent() ? dsl.selectFrom(table).where(condition.get()) : dsl.selectFrom(table);
+
+        return step
+                .fetchInto(recordClazzType)
+                .stream()
+                .map(r -> mapper.map(r))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<P> search(Pageable pageable, Map<String, Object> conditionMap) {
-        log.info("Try to find {} entries for page {} by using search term: {}",
+        log.debug("Try to find {} entries for page {} by using search term: {}",
                 pageable.getPageSize(),
                 pageable.getPageNumber(),
                 conditionMap
@@ -385,5 +423,12 @@ public abstract class JooqDaoImpl<R extends UpdatableRecord<R>, P, T> implements
         } else {
             return tableField.desc();
         }
+    }
+
+    protected Map<String, Object> initMap(String key, Object value) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(key, value);
+
+        return map;
     }
 }

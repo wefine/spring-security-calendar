@@ -174,8 +174,27 @@ public interface JooqDao<R extends TableRecord<R>, P, T> {
      * @return A list of records fulfilling <code>field IN (values)</code>
      * @throws DataAccessException if something went wrong executing the query
      */
-    <Z> List<P> fetch(Field<Z> field, Z... values) throws DataAccessException;
+    <Z> List<P> fetchIn(Field<Z> field, Z... values) throws DataAccessException;
 
+    /**
+     * Find records by a given field and value.
+     *
+     * @param field  The field to compare values against
+     * @param value The accepted values
+     * @return A list of records fulfilling <code>field like ( % value)</code>
+     * @throws DataAccessException if something went wrong executing the query
+     */
+    <Z> List<P> fetchLike(Field<Z> field, Z value)throws DataAccessException;
+
+    /**
+     * Find records by a given field and value.
+     *
+     * @param field  The field to compare values against
+     * @param value The accepted values
+     * @return A list of records fulfilling <code>field like ( % value)</code>
+     * @throws DataAccessException if something went wrong executing the query
+     */
+    <Z> List<P> fetchEqual(Field<Z> field, Z value)throws DataAccessException;
     /**
      * Find a unique record by a given field and a value.
      *
@@ -219,6 +238,14 @@ public interface JooqDao<R extends TableRecord<R>, P, T> {
      * @return Pojo's list
      */
     List<P> search(Pageable pageable);
+
+    /**
+     * Search by condition map.
+     *
+     * @param conditionMap search condition
+     * @return Pojo's list
+     */
+    List<P> search(Map<String, Object> conditionMap);
 
     /**
      * Search with pagination, and condition.

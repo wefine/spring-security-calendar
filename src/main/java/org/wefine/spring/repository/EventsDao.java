@@ -7,16 +7,24 @@ import org.wefine.spring.config.jooq.JooqDaoImpl;
 import org.wefine.spring.jooq.tables.pojos.Events;
 import org.wefine.spring.jooq.tables.records.EventsRecord;
 
+import java.util.List;
+
+import static org.wefine.spring.jooq.tables.Events.EVENTS;
+
 @Repository
 public class EventsDao extends JooqDaoImpl<EventsRecord, Events, Long> {
 
     @Autowired
     public EventsDao(DSLContext dsl) {
-        super(org.wefine.spring.jooq.tables.Events.EVENTS, Events.class, dsl);
+        super(EVENTS, Events.class, dsl);
     }
 
     @Override
     protected Long getId(Events object) {
         return object.getId();
+    }
+
+    public List<Events> findForUser(Long userId) {
+        return fetchEqual(EVENTS.OWNER, userId);
     }
 }
