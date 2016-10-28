@@ -26,8 +26,8 @@
             </tr>
             <tr th:each="event : ${events}">
                 <td th:text="${#calendars.format(event.time,'yyyy-MM-dd HH:mm:ss')}"></td>
-                <td th:text="${event.of}"></td>
-                <td th:text="${event.af}"></td>
+                <td th:text="${event.of}+'  '+${event.ol}"></td>
+                <td th:text="${event.af}+'  '+${event.al}"></td>
                 <td th:text="${event.summary}"></td>
             </tr>
         </tbody>
