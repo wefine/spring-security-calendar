@@ -2,6 +2,8 @@ package org.wefine.spring.config.jooq;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,9 +23,8 @@ import static org.jooq.impl.DSL.row;
  *
  * @author wefine
  */
-@Slf4j
 public abstract class JooqDaoImpl<R extends UpdatableRecord<R>, P, T> implements JooqDao<R, P, T> {
-
+    private static final Logger log = LoggerFactory.getLogger(JooqDaoImpl.class);
     private final Table<R> table;
     private final Class<? extends R> recordClazzType;
 
