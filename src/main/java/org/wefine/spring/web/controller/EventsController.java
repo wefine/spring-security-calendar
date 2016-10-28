@@ -20,6 +20,7 @@ import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/events")
@@ -35,7 +36,7 @@ public class EventsController {
 
     @RequestMapping({"","/"})
     public ModelAndView events() {
-        List<Events> list =  calendarService.getEvents();
+        List<Map<String, Object>> list =  calendarService.getEventsWithNames();
         return new ModelAndView("events/list", "events", list);
     }
 

@@ -6,6 +6,7 @@ import org.wefine.spring.jooq.tables.pojos.Events;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CalendarService {
 
@@ -92,4 +93,6 @@ public interface CalendarService {
      * @return a non-null {@link List} of {@link Events}'s
      */
     List<Events> getEvents();
+
+    List<Map<String, Object>> getEventsWithNames();
 }

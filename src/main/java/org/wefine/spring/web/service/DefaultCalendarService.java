@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * A default implementation of {@link CalendarService} that delegates to {@link EventsDao} and {@link UsersDao}.
@@ -49,6 +50,10 @@ public class DefaultCalendarService implements CalendarService {
 
     public List<Events> getEvents() {
         return eventDao.findAll();
+    }
+
+    public List<Map<String, Object>> getEventsWithNames() {
+        return eventDao.findUsersWithName();
     }
 
     public Users getUser(Long id) {
