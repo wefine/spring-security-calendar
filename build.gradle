@@ -76,9 +76,9 @@ jooq {
                 records = true              // ActiveRecord类，默认为 true
                 generatedAnnotation = true  // 生成类的头部注解@Generated，默认为 true
                 pojos = true                // 生成POJO类，默认为 false
-                interfaces = true          // 生成需RECORD、POJO实现的接口，默认为 false
-                daos = true                // 生成基本DAO，默认为 false
-                jpaAnnotations = true      // 生成JPA注解，默认为 false
+                interfaces = false          // 生成需RECORD、POJO实现的接口，默认为 false
+                daos = false                // 生成基本DAO，默认为 false
+                jpaAnnotations = false      // 生成JPA注解，默认为 false
                 springAnnotations = true   // 生成的DAO中添加@Repository和@Autowired，默认为 false
                 fluentSetters = true       // 生成类中添加相关的 setter 方法，默认为 false
             }

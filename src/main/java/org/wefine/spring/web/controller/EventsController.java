@@ -19,6 +19,7 @@ import org.wefine.spring.web.service.UserContext;
 import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 
 @Controller
 @RequestMapping("/events")
@@ -32,9 +33,10 @@ public class EventsController {
         this.userContext = userContext;
     }
 
-    @RequestMapping("/")
+    @RequestMapping({"","/"})
     public ModelAndView events() {
-        return new ModelAndView("events/list", "events", calendarService.getEvents());
+        List<Events> list =  calendarService.getEvents();
+        return new ModelAndView("events/list", "events", list);
     }
 
     @RequestMapping("/my")
