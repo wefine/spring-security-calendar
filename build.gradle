@@ -103,6 +103,7 @@ dependencies {
     // jdbc connection pool
     compile('com.zaxxer:HikariCP')
     runtime('mysql:mysql-connector-java')
+    compile('com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.8.3')
     compile("org.jooq:jooq-meta-extensions:3.8.5")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")

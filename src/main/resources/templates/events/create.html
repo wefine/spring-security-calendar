@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{includes/header :: head}"></head>
+<body>
+
+<div th:replace="~{includes/navbar :: nav}"></div>
+<div class="container">
+    <h1 id="title">Create Event</h1>
+
+    <form id="createEventForm" class="form-horizontal" th:action="@{new}" method="post">
+        <fieldset>
+            <legend>Event Information</legend>
+            <div class="control-group">
+                <label class="control-label" for="attendeeEmail">Attendee Email</label>
+                <div class="controls">
+                    <input id="attendeeEmail" name="attendeeEmail" class="input-xlarge" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="when">Event Date/Time (yyyy-MM-dd HH:mm)</label>
+                <div class="controls">
+                    <input id="when" name="when" class="input-xlarge" type="text" value=""/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="summary">Summary</label>
+                <div class="controls">
+                    <input id="summary" name="summary" class="input-xlarge" type="text" value=""/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="description">Description</label>
+                <div class="controls">
+                    <textarea id="description" name="description" class="input-xlarge" rows="5" cols="25"></textarea>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <input id="submit" type="submit" value="Create"/>
+                    <input id="auto" type="submit" name="auto" value="Auto Populate Form"/>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<div th:replace="~{includes/footer :: foot}"></div>
+</body>
+</html>
